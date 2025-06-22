@@ -139,12 +139,12 @@ Die Anwendung digitalisiert zentrale betriebliche Prozesse wie Einkauf, Lagerver
 
 ### Warenübersicht & Rezeptverwaltung (Use-Case 1)
 
-![WMS-Dashboard](https://github.com/user-attachments/assets/f22ff4dd-89e8-4d2c-b8b9-18fa7d334010)
+![WMS-Dashboard](https://github.com/user-attachments/assets/2cbdfc0b-8962-45e1-a843-fa8a1508a7a3)
 *Intuitive Oberfläche*
 
 ### Inventurmodus & Umlagerung (Use-Case 2)
 
-![WMS-Inventory](https://github.com/user-attachments/assets/cb90b7ee-c4c7-41c8-983b-a6a5d75965cd)
+![WMS-Inventory](https://github.com/user-attachments/assets/43f7a582-5d08-439d-acb9-61d54e9e0acb)
 *Materialverfolgung mit Datumsfilter und Standortwechsel.*
 
 ---
