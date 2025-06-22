@@ -1,0 +1,16 @@
+{
+    "Rezept": {
+        "Name": "Kerze",
+        "RezeptID": 1,
+        "BehaelterID": 1,
+        "DeckelID": 1,
+        "MatID": 2,
+        "Menge": 2,
+        "Materialien": [
+            {
+                "MatID": 1,
+                "Menge": 2
+            }
+        ]
+    }
+} 

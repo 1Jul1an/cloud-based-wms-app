@@ -1,0 +1,141 @@
+service: my-serverless-app
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-central-1
+  environment:
+    DB_HOST: database-1.czm0kq64ypq1.eu-central-1.rds.amazonaws.com
+    DB_USER: admin
+    DB_PASSWORD: 
+    DB_NAME: wawi
+    NODE_OPTIONS: --enable-source-maps --stack-trace-limit=1000
+  vpc:
+    securityGroupIds:
+      - sg-090ca89d61fc510f1  # Lambda3306
+      - sg-0135e962f5f7a2fb6  # rds-lambda-1
+    subnetIds:
+      - subnet-0b71c93fd4ba744c2
+      - subnet-02a70fa3169daa5ba
+      - subnet-0e970cf64b3378be3
+
+functions:
+
+  # Validated Wrapper
+  validatedGetLieferantFE:
+    handler: src/validation/wrapper.validatedGetLieferantFE
+    events:
+      - http:
+          path: validatedGetLieferantFE
+          method: post
+
+  validatedGetMatLief:
+    handler: src/validation/wrapper.validatedGetMatLief
+    events:
+      - http:
+          path: validatedGetMatLief
+          method: post
+
+  validatedBuchung:
+    handler: src/validation/wrapper.validatedGetBuchung
+    events:
+      - http:
+          path: validatedBuchung
+          method: post
+
+  validatedInvKorrWE:
+    handler: src/validation/wrapper.validateGetInvKorrWE
+    events:
+      - http:
+          path: validatedInvKorrWE
+          method: post
+
+  validateUpsertRezept:
+    handler: src/validation/wrapper.validateUpsertRezept
+    events:
+      - http:
+          path: validateUpsertRezept
+          method: post
+
+  validateHerstellung:
+    handler: src/validation/wrapper.validateHerstellung
+    events:
+      - http:
+          path: validateHerstellung
+          method: post
+
+  # Direkt-Handler
+  handlerGetLieferanten:
+    handler: src/handler/Einkauf/handlerGetLieferanten.getLieferanten
+    events:
+      - http:
+          path: getLieferanten
+          method: get
+
+  handlerInventar:
+    handler: src/handler/Inventar/handlerInventar.handlerInventar
+    events:
+      - http:
+          path: handlerInventar
+          method: get
+
+  handlerWareneingang:
+    handler: src/handler/Wareneingang/handlerWareneingang.handlerWareneingang
+    events:
+      - http:
+          path: handlerWareneingang
+          method: get
+
+  handlergetRezept:
+    handler: src/handler/Herstellung/handlerGetRezept.handlerGetRezept
+    events:
+      - http:
+          path: handlerGetRezept
+          method: get
+
+  handlerHerstellung:
+    handler: src/handler/Herstellung/Herstellung/handlerHerstellung.handlerHerstellung
+    events:
+      - http:
+          path: handlerHerstellung
+          method: post
+
+  handlerGetInvKorr:
+    handler: src/handler/Inventarkorrektur/handlerGetInvKorr.handlerGetInvKorr
+    events:
+      - http:
+          path: handlerGetInvKorr
+          method: get
+
+  responseSender:
+    handler: src/responseSender/responseSender.responseSender
+    events:
+      - http:
+          path: responseSender
+          method: post
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    log: true
+    httpPort: 3001
+    noPrependStageInUrl: true
+
+  jsonImports:
+    basePath: ./src/responseSender/JSONs
+    jsonLieferanten: ${file(${self:custom.jsonImports.basePath}/handlergetLieferanten.json)}
+
+
+package:
+  individually: true
+  excludeDevDependencies: true
+  exclude:
+    - .git/**
+    - .vscode/**
+    - .build/**
+    - .serverless/**

@@ -1,0 +1,18 @@
+{
+    "Bestellung": {
+            "LiefID": 1,
+            "LagerID": 1,
+            "Datum": "2011-11-11",
+            "Benutzer": "default",
+            "Materialien": [
+                {
+                    "MatID": 1,
+                    "Menge": 20
+                },
+                {
+                    "MatID": 2,
+                    "Menge": 20
+                }
+            ]
+        }
+}
