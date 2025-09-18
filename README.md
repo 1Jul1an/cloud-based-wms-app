@@ -131,7 +131,7 @@ Die Anwendung digitalisiert zentrale betriebliche Prozesse wie Einkauf, Lagerver
 
 * **Franz L.** – Stakeholderanalyse, AWS Deploy, Requirements
 
-  -> GitHub: *(tba)*
+  -> GitHub: [@FranzRL](https://github.com/FranzRL)
 
 ---
 
