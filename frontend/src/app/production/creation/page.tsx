@@ -1,114 +1,64 @@
-// File: app/production/herstellung-produkt/page.tsx (HerstellungProduktPage)
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { FaArrowLeft, FaSave } from "react-icons/fa";
 
-const HerstellungProduktPage = () => {
-    const router = useRouter();
-    const [selectedRecipe, setSelectedRecipe] = useState("");
-    const [materialAvailable, setMaterialAvailable] = useState("");
-    const [alternative, setAlternative] = useState("");
-    const [processCompleted, setProcessCompleted] = useState(false);
+import { useMemo, useState } from "react";
+import { FaCheck, FaClipboardCheck, FaTasks } from "react-icons/fa";
+import { AppShell, DataTable, GlassCard, MetricCard, PageIntro, SecondaryButton, StatusBadge, TableCell, TableHead, TopBar } from "../../components/wms-ui";
+import { getPackingRows, getPickingRows } from "../../data/wmsMockData";
+import { useI18n } from "../../i18n";
 
-    // Dummy-Rezeptliste
-    const dummyRecipes = [
-        { id: 1, name: "Rezept A" },
-        { id: 2, name: "Rezept B" },
-        { id: 3, name: "Rezept C" },
-    ];
+export default function TaskExecutionPage() {
+  const { t, dataText } = useI18n();
+  const initialTasks = useMemo(() => [
+    ...getPickingRows().map((task) => ({ ...task, taskType: "Pick" })),
+    ...getPackingRows().map((task) => ({ ...task, taskType: "Pack" }))
+  ], []);
+  const [tasks, setTasks] = useState(initialTasks);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (materialAvailable === "ja") {
-            console.log(
-                "Material verfügbar – Materialien werden zusammengestellt, Produkt wird hergestellt und Material aktualisiert."
-            );
-        } else {
-            console.log(
-                `Material nicht verfügbar – Alternative: ${alternative}. Danach wird das Produkt hergestellt.`
-            );
-        }
-        setProcessCompleted(true);
-    };
+  const completeTask = (taskId: string) => {
+    setTasks((current) => current.map((task) => task.id === taskId ? { ...task, status: "done" } : task));
+  };
 
-    return (
-        <div className="min-h-screen bg-gray-100 p-8">
-            <header className="mb-8 flex justify-between items-center">
-                <button
-                    onClick={() => router.push("/production")}
-                    className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 flex items-center gap-2"
-                >
-                    <FaArrowLeft /> Zurück
-                </button>
-                <h1 className="text-3xl font-bold">Herstellung eines Produkts</h1>
-            </header>
-            {processCompleted ? (
-                <div className="bg-white p-8 rounded shadow">
-                    <p>Produkt wurde hergestellt!</p>
-                    <button
-                        onClick={() => router.push("/production")}
-                        className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-                    >
-                        Zurück zur Produktion
-                    </button>
-                </div>
-            ) : (
-                <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-8">
-                    <div className="mb-4">
-                        <label className="block text-gray-700">Rezept auswählen</label>
-                        <select
-                            value={selectedRecipe}
-                            onChange={(e) => setSelectedRecipe(e.target.value)}
-                            className="w-full px-4 py-2 border rounded"
-                            required
-                        >
-                            <option value="">-- Auswahl --</option>
-                            {dummyRecipes.map((r) => (
-                                <option key={r.id} value={r.id}>
-                                    {r.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="mb-4">
-                        <label className="block text-gray-700">Material verfügbar?</label>
-                        <select
-                            value={materialAvailable}
-                            onChange={(e) => setMaterialAvailable(e.target.value)}
-                            className="w-full px-4 py-2 border rounded"
-                            required
-                        >
-                            <option value="">-- Auswahl --</option>
-                            <option value="ja">Ja</option>
-                            <option value="nein">Nein</option>
-                        </select>
-                    </div>
-                    {materialAvailable === "nein" && (
-                        <div className="mb-4">
-                            <label className="block text-gray-700">Alternative wählen</label>
-                            <select
-                                value={alternative}
-                                onChange={(e) => setAlternative(e.target.value)}
-                                className="w-full px-4 py-2 border rounded"
-                                required
-                            >
-                                <option value="">-- Auswahl --</option>
-                                <option value="einkaufen">Materialien einkaufen</option>
-                                <option value="umlagern">Materialien umlagern</option>
-                            </select>
-                        </div>
-                    )}
-                    <button
-                        type="submit"
-                        className="px-4 py-2 bg-green-500 text-white rounded flex items-center gap-2"
-                    >
-                        <FaSave /> Produkt herstellen
-                    </button>
-                </form>
-            )}
-        </div>
-    );
-};
+  const openTasks = tasks.filter((task) => task.status !== "done");
 
-export default HerstellungProduktPage;
+  return (
+    <AppShell>
+      <TopBar title={t("taskBoard.title")} subtitle={t("taskBoard.subtitle")} showBack backHref="/production" />
+      <PageIntro eyebrow={t("taskBoard.eyebrow")} title={t("taskBoard.intro.title")} description={t("taskBoard.intro.desc")} />
+
+      <section className="mb-6 grid gap-4 md:grid-cols-3">
+        <MetricCard label={t("taskBoard.total")} value={tasks.length} hint={t("taskBoard.total.hint")} icon={<FaTasks />} />
+        <MetricCard label={t("status.open")} value={openTasks.length} hint={t("taskBoard.open.hint")} icon={<FaClipboardCheck />} />
+        <MetricCard label={t("taskBoard.completed")} value={tasks.length - openTasks.length} hint={t("taskBoard.completed.hint")} icon={<FaCheck />} />
+      </section>
+
+      <GlassCard>
+        <DataTable>
+          <TableHead>
+            <tr>
+              <th className="px-4 py-3">{t("outbound.task")}</th>
+              <th className="px-4 py-3">{t("common.type")}</th>
+              <th className="px-4 py-3">{t("common.order")}</th>
+              <th className="px-4 py-3">{t("taskBoard.productOrStation")}</th>
+              <th className="px-4 py-3">{t("common.operator")}</th>
+              <th className="px-4 py-3">{t("common.status")}</th>
+              <th className="px-4 py-3">{t("common.action")}</th>
+            </tr>
+          </TableHead>
+          <tbody className="divide-y divide-slate-100">
+            {tasks.map((task: any) => (
+              <tr key={task.id} className="hover:bg-slate-50/80">
+                <TableCell className="font-semibold text-slate-950">{task.id}</TableCell>
+                <TableCell>{dataText(task.taskType)}</TableCell>
+                <TableCell>{task.orderId}</TableCell>
+                <TableCell>{task.product?.sku || task.station}</TableCell>
+                <TableCell>{task.operator?.name}</TableCell>
+                <TableCell><StatusBadge status={task.status} /></TableCell>
+                <TableCell>{task.status === "done" ? <span className="text-sm text-slate-400">{t("common.complete")}</span> : <SecondaryButton onClick={() => completeTask(task.id)}><FaCheck /> {t("common.complete")}</SecondaryButton>}</TableCell>
+              </tr>
+            ))}
+          </tbody>
+        </DataTable>
+      </GlassCard>
+    </AppShell>
+  );
+}

@@ -1,65 +1,39 @@
 "use client";
 
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import FeatureCard from "../components/featurecard"
-import Footer from '../components/footer'
-import {FaArrowLeft, FaBoxes, FaShoppingCart, FaTruckLoading} from 'react-icons/fa'
-import { useRouter } from 'next/navigation'
+import { FaBoxes, FaClipboardCheck, FaExclamationTriangle, FaPlusCircle } from "react-icons/fa";
+import { AppShell, AlertRow, GlassCard, LinkCard, MetricCard, PageIntro, TopBar } from "../components/wms-ui";
+import { getInventoryRows, wmsData } from "../data/wmsMockData";
+import { useI18n } from "../i18n";
 
-const Home: NextPage = () => {
-    const router = useRouter();
+export default function ControlCenterPage() {
+  const { t } = useI18n();
+  const inventoryRows = getInventoryRows();
+  const lowStock = inventoryRows.filter((row) => row.available < row.reorderPoint).length;
+  const exceptions = wmsData.alerts.filter((alert) => alert.status === "open");
 
-    return (
-        <div className="min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 flex flex-col">
-            <Head>
-                <title>Warenwirtschaftssoftware</title>
-                <meta name="description" content="Moderne Warenwirtschaftssoftware für dein Unternehmen" />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+  return (
+    <AppShell>
+      <TopBar title={t("control.title")} subtitle={t("control.subtitle")} showBack />
+      <PageIntro eyebrow={t("control.eyebrow")} title={t("control.intro.title")} description={t("control.intro.desc")} />
 
-            <header className="w-full py-6 bg-white shadow-md relative">
-                <div className="container mx-auto px-4 flex items-center justify-center">
-                    <h1 className="text-4xl font-semibold text-gray-800">Chefbereich</h1>
-                </div>
-                <button
-                    onClick={() => router.push("/")}
-                    className="text-xl absolute left-16 top-1/2 transform -translate-y-1/2 flex items-center gap-2 px-5 py-3 bg-white border border-gray-300 rounded-lg shadow hover:bg-gray-100 transition duration-300"
-                >
-                    <FaArrowLeft className="text-gray-700" />
-                    <span className="text-gray-700 text-xl">Zurück</span>
-                </button>
-            </header>
+      <section className="mb-6 grid gap-4 md:grid-cols-3">
+        <MetricCard label={t("control.activeSkus")} value={wmsData.products.length} hint={t("control.activeSkus.hint")} icon={<FaBoxes />} />
+        <MetricCard label={t("control.stockRisks")} value={lowStock} hint={t("control.stockRisks.hint")} icon={<FaExclamationTriangle />} />
+        <MetricCard label={t("control.openExceptions")} value={exceptions.length} hint={t("control.openExceptions.hint")} icon={<FaClipboardCheck />} />
+      </section>
 
-            <main className="flex flex-col items-center justify-center flex-1 px-4 py-12">
-                <h2 className="text-4xl font-bold mb-8 text-gray-900 text-center">
-                    Willkommen zum Chefbereich der Geruchsmanufaktur!
-                </h2>
-                <div className="flex flex-wrap justify-center gap-8">
-                    <FeatureCard
-                        title="Produkteanlegen"
-                        description=""
-                        href="/changes/changes3"
-                        icon={<FaTruckLoading size={40} />}
-                    />
-                    <FeatureCard
-                        title="Inventar"
-                        description=""
-                        href="/changes/changes1"
-                        icon={<FaShoppingCart size={40} />}
-                    />
-                    <FeatureCard
-                        title="Wareneingangskorrekturen"
-                        description=""
-                        href="/changes/changes2"
-                        icon={<FaBoxes size={40} />}
-                    />
-                </div>
-            </main>
+      <section className="mb-6 grid gap-5 md:grid-cols-3">
+        <LinkCard title={t("control.corrections.title")} description={t("control.corrections.desc")} href="/changes/changes1" icon={<FaBoxes />} />
+        <LinkCard title={t("control.exceptionReview.title")} description={t("control.exceptionReview.desc")} href="/changes/changes2" icon={<FaExclamationTriangle />} />
+        <LinkCard title={t("control.createSku.title")} description={t("control.createSku.desc")} href="/changes/changes3" icon={<FaPlusCircle />} />
+      </section>
 
-            <Footer />
+      <GlassCard>
+        <h2 className="mb-4 text-lg font-semibold text-slate-950">{t("control.queue")}</h2>
+        <div className="grid gap-3 lg:grid-cols-3">
+          {exceptions.map((alert) => <AlertRow key={alert.id} title={alert.title} message={alert.message} severity={alert.severity} />)}
         </div>
-    );
-};
-
-export default Home;
+      </GlassCard>
+    </AppShell>
+  );
+}

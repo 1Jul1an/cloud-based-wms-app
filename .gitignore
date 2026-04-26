@@ -16,3 +16,8 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+frontend/README.md
+*.iml
+frontend/postcss.config.mjs
+frontend/next.config.mjs
+frontend/bun.lock

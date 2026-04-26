@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { I18nProvider } from "./i18n";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -14,8 +15,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "WaWi - Geruchsmanufaktur",
-  description: "WaWi der Geruchsmanufaktur",
+  title: "Cloud WMS",
+  description: "Modern warehouse management system",
 };
 
 export default function RootLayout({
@@ -24,11 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="de">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <I18nProvider>{children}</I18nProvider>
       </body>
     </html>
   );

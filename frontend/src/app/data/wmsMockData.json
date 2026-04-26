@@ -1,0 +1,227 @@
+{
+  "meta": {
+    "appName": "Cloud WMS",
+    "workspace": "Warehouse Operations",
+    "generatedAt": "2026-04-26T08:00:00.000Z",
+    "operatingDate": "2026-04-26"
+  },
+  "warehouses": [
+    {
+      "id": "WH-BER-01",
+      "name": "Berlin Fulfillment Hub",
+      "city": "Berlin",
+      "type": "Primary warehouse",
+      "capacity": 42000,
+      "usedCapacity": 31240,
+      "status": "operational"
+    },
+    {
+      "id": "WH-HAM-02",
+      "name": "Hamburg Crossdock",
+      "city": "Hamburg",
+      "type": "Crossdock",
+      "capacity": 18000,
+      "usedCapacity": 11280,
+      "status": "operational"
+    }
+  ],
+  "locations": [
+    { "id": "LOC-A-01-01", "code": "A-01-01", "warehouseId": "WH-BER-01", "zone": "Fast Pick", "type": "Pick bin", "status": "active" },
+    { "id": "LOC-A-01-02", "code": "A-01-02", "warehouseId": "WH-BER-01", "zone": "Fast Pick", "type": "Pick bin", "status": "active" },
+    { "id": "LOC-A-02-03", "code": "A-02-03", "warehouseId": "WH-BER-01", "zone": "Small Parts", "type": "Pick bin", "status": "active" },
+    { "id": "LOC-B-03-01", "code": "B-03-01", "warehouseId": "WH-BER-01", "zone": "Bulk Reserve", "type": "Reserve rack", "status": "active" },
+    { "id": "LOC-B-04-02", "code": "B-04-02", "warehouseId": "WH-BER-01", "zone": "Bulk Reserve", "type": "Reserve rack", "status": "active" },
+    { "id": "LOC-QC-01", "code": "QC-01", "warehouseId": "WH-BER-01", "zone": "Quality", "type": "Inspection", "status": "active" },
+    { "id": "LOC-PACK-01", "code": "PACK-01", "warehouseId": "WH-BER-01", "zone": "Packing", "type": "Packing station", "status": "active" },
+    { "id": "LOC-STAGE-OUT-01", "code": "STAGE-OUT-01", "warehouseId": "WH-BER-01", "zone": "Outbound", "type": "Staging lane", "status": "active" },
+    { "id": "LOC-DOCK-IN-01", "code": "DOCK-IN-01", "warehouseId": "WH-BER-01", "zone": "Inbound", "type": "Dock door", "status": "active" },
+    { "id": "LOC-HH-XD-01", "code": "XD-01", "warehouseId": "WH-HAM-02", "zone": "Crossdock", "type": "Transit lane", "status": "active" }
+  ],
+  "products": [
+    { "id": "PRD-1001", "sku": "SKU-AR-100", "name": "Aroma Diffuser Starter Kit", "category": "Finished Goods", "unit": "pcs", "weightKg": 0.8, "reorderPoint": 90, "storageClass": "Standard", "active": true },
+    { "id": "PRD-1002", "sku": "SKU-LS-250", "name": "Linen Spray 250 ml", "category": "Finished Goods", "unit": "pcs", "weightKg": 0.35, "reorderPoint": 160, "storageClass": "Standard", "active": true },
+    { "id": "PRD-1003", "sku": "SKU-CC-180", "name": "Ceramic Candle 180 g", "category": "Finished Goods", "unit": "pcs", "weightKg": 0.62, "reorderPoint": 120, "storageClass": "Fragile", "active": true },
+    { "id": "PRD-1004", "sku": "SKU-RF-500", "name": "Room Fragrance Refill 500 ml", "category": "Finished Goods", "unit": "pcs", "weightKg": 0.58, "reorderPoint": 80, "storageClass": "Liquid", "active": true },
+    { "id": "PRD-1005", "sku": "SKU-BOX-S", "name": "Gift Box Small", "category": "Packaging", "unit": "pcs", "weightKg": 0.08, "reorderPoint": 300, "storageClass": "Packaging", "active": true },
+    { "id": "PRD-1006", "sku": "SKU-LBL-DE", "name": "Shipping Label DE", "category": "Packaging", "unit": "pcs", "weightKg": 0.01, "reorderPoint": 500, "storageClass": "Consumable", "active": true },
+    { "id": "PRD-1007", "sku": "SKU-BUB-M", "name": "Protective Mailer M", "category": "Packaging", "unit": "pcs", "weightKg": 0.04, "reorderPoint": 350, "storageClass": "Packaging", "active": true },
+    { "id": "PRD-1008", "sku": "SKU-TEST-01", "name": "Sample Discovery Set", "category": "Finished Goods", "unit": "pcs", "weightKg": 0.18, "reorderPoint": 70, "storageClass": "Small Parts", "active": true }
+  ],
+  "inventory": [
+    { "id": "INV-001", "productId": "PRD-1001", "warehouseId": "WH-BER-01", "locationId": "LOC-A-01-01", "onHand": 148, "reserved": 32, "available": 116, "lot": "L2404-A", "status": "available" },
+    { "id": "INV-002", "productId": "PRD-1002", "warehouseId": "WH-BER-01", "locationId": "LOC-A-01-02", "onHand": 92, "reserved": 54, "available": 38, "lot": "L2404-L", "status": "low_stock" },
+    { "id": "INV-003", "productId": "PRD-1003", "warehouseId": "WH-BER-01", "locationId": "LOC-A-02-03", "onHand": 74, "reserved": 46, "available": 28, "lot": "L2403-C", "status": "low_stock" },
+    { "id": "INV-004", "productId": "PRD-1004", "warehouseId": "WH-BER-01", "locationId": "LOC-B-03-01", "onHand": 210, "reserved": 18, "available": 192, "lot": "L2404-R", "status": "available" },
+    { "id": "INV-005", "productId": "PRD-1005", "warehouseId": "WH-BER-01", "locationId": "LOC-B-04-02", "onHand": 520, "reserved": 118, "available": 402, "lot": "PK-0426", "status": "available" },
+    { "id": "INV-006", "productId": "PRD-1006", "warehouseId": "WH-BER-01", "locationId": "LOC-PACK-01", "onHand": 860, "reserved": 210, "available": 650, "lot": "LB-0426", "status": "available" },
+    { "id": "INV-007", "productId": "PRD-1007", "warehouseId": "WH-BER-01", "locationId": "LOC-PACK-01", "onHand": 318, "reserved": 96, "available": 222, "lot": "PM-0418", "status": "replenish_today" },
+    { "id": "INV-008", "productId": "PRD-1008", "warehouseId": "WH-HAM-02", "locationId": "LOC-HH-XD-01", "onHand": 66, "reserved": 12, "available": 54, "lot": "SMP-0410", "status": "available" },
+    { "id": "INV-009", "productId": "PRD-1002", "warehouseId": "WH-BER-01", "locationId": "LOC-QC-01", "onHand": 24, "reserved": 0, "available": 0, "lot": "L2404-L-QA", "status": "quality_hold" }
+  ],
+  "suppliers": [
+    { "id": "SUP-01", "legacyId": 1, "name": "Packline Europe", "leadTimeDays": 3, "reliability": 97 },
+    { "id": "SUP-02", "legacyId": 2, "name": "Fragrance Components GmbH", "leadTimeDays": 5, "reliability": 94 },
+    { "id": "SUP-03", "legacyId": 3, "name": "LabelWorks Berlin", "leadTimeDays": 2, "reliability": 98 }
+  ],
+  "supplierProducts": [
+    { "id": "SP-001", "supplierId": "SUP-01", "productId": "PRD-1005", "supplierSku": "PL-BOX-S", "minOrderQty": 200, "link": "https://example.com/packline/box-small" },
+    { "id": "SP-002", "supplierId": "SUP-01", "productId": "PRD-1007", "supplierSku": "PL-MAILER-M", "minOrderQty": 300, "link": "https://example.com/packline/mailer-m" },
+    { "id": "SP-003", "supplierId": "SUP-02", "productId": "PRD-1002", "supplierSku": "FC-LINEN-250", "minOrderQty": 96, "link": "https://example.com/fragrance/linen-250" },
+    { "id": "SP-004", "supplierId": "SUP-02", "productId": "PRD-1004", "supplierSku": "FC-REFILL-500", "minOrderQty": 60, "link": "https://example.com/fragrance/refill-500" },
+    { "id": "SP-005", "supplierId": "SUP-03", "productId": "PRD-1006", "supplierSku": "LW-SHIP-DE", "minOrderQty": 500, "link": "https://example.com/labelworks/de-label" }
+  ],
+  "inboundDeliveries": [
+    {
+      "id": "INB-240426-01",
+      "poNumber": "PO-7841",
+      "supplierId": "SUP-01",
+      "warehouseId": "WH-BER-01",
+      "dock": "DOCK-IN-01",
+      "eta": "2026-04-26T09:40:00.000Z",
+      "status": "arrived",
+      "items": [
+        { "productId": "PRD-1005", "expectedQty": 420, "receivedQty": 0 },
+        { "productId": "PRD-1007", "expectedQty": 300, "receivedQty": 0 }
+      ]
+    },
+    {
+      "id": "INB-240426-02",
+      "poNumber": "PO-7842",
+      "supplierId": "SUP-02",
+      "warehouseId": "WH-BER-01",
+      "dock": "DOCK-IN-01",
+      "eta": "2026-04-26T11:15:00.000Z",
+      "status": "expected",
+      "items": [
+        { "productId": "PRD-1002", "expectedQty": 144, "receivedQty": 0 },
+        { "productId": "PRD-1004", "expectedQty": 84, "receivedQty": 0 }
+      ]
+    },
+    {
+      "id": "INB-240425-09",
+      "poNumber": "PO-7839",
+      "supplierId": "SUP-03",
+      "warehouseId": "WH-BER-01",
+      "dock": "QC-01",
+      "eta": "2026-04-25T16:30:00.000Z",
+      "status": "in_review",
+      "exception": "Label roll count mismatch. Expected 500, counted 462.",
+      "items": [
+        { "productId": "PRD-1006", "expectedQty": 500, "receivedQty": 462 }
+      ]
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-10045",
+      "channel": "Online Store",
+      "customer": "Meyer Home GmbH",
+      "warehouseId": "WH-BER-01",
+      "priority": "high",
+      "status": "picking",
+      "dueAt": "2026-04-26T13:00:00.000Z",
+      "items": [
+        { "productId": "PRD-1001", "qty": 6 },
+        { "productId": "PRD-1005", "qty": 6 },
+        { "productId": "PRD-1006", "qty": 6 }
+      ]
+    },
+    {
+      "id": "ORD-10046",
+      "channel": "Retail Replenishment",
+      "customer": "Kaufhaus Nord",
+      "warehouseId": "WH-BER-01",
+      "priority": "standard",
+      "status": "ready_to_pack",
+      "dueAt": "2026-04-26T15:30:00.000Z",
+      "items": [
+        { "productId": "PRD-1003", "qty": 18 },
+        { "productId": "PRD-1007", "qty": 18 }
+      ]
+    },
+    {
+      "id": "ORD-10047",
+      "channel": "Marketplace",
+      "customer": "Lena Fischer",
+      "warehouseId": "WH-BER-01",
+      "priority": "express",
+      "status": "packed",
+      "dueAt": "2026-04-26T12:15:00.000Z",
+      "items": [
+        { "productId": "PRD-1002", "qty": 2 },
+        { "productId": "PRD-1008", "qty": 1 },
+        { "productId": "PRD-1006", "qty": 1 }
+      ]
+    },
+    {
+      "id": "ORD-10048",
+      "channel": "B2B Portal",
+      "customer": "Hotel am Kai",
+      "warehouseId": "WH-HAM-02",
+      "priority": "standard",
+      "status": "released",
+      "dueAt": "2026-04-27T10:00:00.000Z",
+      "items": [
+        { "productId": "PRD-1004", "qty": 24 },
+        { "productId": "PRD-1005", "qty": 24 }
+      ]
+    }
+  ],
+  "operators": [
+    { "id": "USR-01", "name": "Mara Vogel", "role": "Inbound Lead", "shift": "Early" },
+    { "id": "USR-02", "name": "Jonas Ritter", "role": "Picker", "shift": "Early" },
+    { "id": "USR-03", "name": "Lea Schneider", "role": "Packer", "shift": "Early" },
+    { "id": "USR-04", "name": "Omar Yilmaz", "role": "Inventory Control", "shift": "Late" }
+  ],
+  "pickingTasks": [
+    { "id": "PICK-9001", "orderId": "ORD-10045", "productId": "PRD-1001", "locationId": "LOC-A-01-01", "qty": 6, "operatorId": "USR-02", "status": "in_progress" },
+    { "id": "PICK-9002", "orderId": "ORD-10045", "productId": "PRD-1005", "locationId": "LOC-B-04-02", "qty": 6, "operatorId": "USR-02", "status": "open" },
+    { "id": "PICK-9003", "orderId": "ORD-10046", "productId": "PRD-1003", "locationId": "LOC-A-02-03", "qty": 18, "operatorId": "USR-02", "status": "done" },
+    { "id": "PICK-9004", "orderId": "ORD-10046", "productId": "PRD-1007", "locationId": "LOC-PACK-01", "qty": 18, "operatorId": "USR-02", "status": "done" }
+  ],
+  "packingTasks": [
+    { "id": "PACK-3101", "orderId": "ORD-10046", "station": "PACK-01", "operatorId": "USR-03", "status": "ready", "cartons": 2 },
+    { "id": "PACK-3102", "orderId": "ORD-10047", "station": "PACK-01", "operatorId": "USR-03", "status": "done", "cartons": 1 }
+  ],
+  "shipments": [
+    { "id": "SHP-7001", "orderId": "ORD-10047", "carrier": "DHL", "service": "Paket Express", "tracking": "DHL982641772DE", "status": "label_printed", "shipBy": "2026-04-26T12:30:00.000Z" },
+    { "id": "SHP-7002", "orderId": "ORD-10046", "carrier": "DPD", "service": "Classic", "tracking": "DPD445019382", "status": "awaiting_pack", "shipBy": "2026-04-26T16:00:00.000Z" }
+  ],
+  "stockMovements": [
+    { "id": "MOV-5001", "type": "Pick reservation", "productId": "PRD-1001", "fromLocationId": "LOC-A-01-01", "toLocationId": "LOC-STAGE-OUT-01", "qty": 6, "timestamp": "2026-04-26T08:12:00.000Z", "reference": "ORD-10045" },
+    { "id": "MOV-5002", "type": "Cycle count adjustment", "productId": "PRD-1002", "fromLocationId": "LOC-A-01-02", "toLocationId": null, "qty": -4, "timestamp": "2026-04-26T08:28:00.000Z", "reference": "COUNT-2207" },
+    { "id": "MOV-5003", "type": "Inbound receipt", "productId": "PRD-1006", "fromLocationId": "LOC-DOCK-IN-01", "toLocationId": "LOC-QC-01", "qty": 462, "timestamp": "2026-04-25T16:42:00.000Z", "reference": "INB-240425-09" },
+    { "id": "MOV-5004", "type": "Replenishment", "productId": "PRD-1007", "fromLocationId": "LOC-B-04-02", "toLocationId": "LOC-PACK-01", "qty": 90, "timestamp": "2026-04-26T07:55:00.000Z", "reference": "TASK-4418" }
+  ],
+  "alerts": [
+    { "id": "ALT-01", "severity": "high", "title": "Low stock risk", "message": "Linen Spray 250 ml is below reorder point after reservations.", "entityType": "product", "entityId": "PRD-1002", "status": "open" },
+    { "id": "ALT-02", "severity": "medium", "title": "Inbound discrepancy", "message": "PO-7839 has a label roll count mismatch and is waiting in QC.", "entityType": "inbound", "entityId": "INB-240425-09", "status": "open" },
+    { "id": "ALT-03", "severity": "medium", "title": "Pick wave at risk", "message": "Order ORD-10045 is due at 13:00 with one open pick remaining.", "entityType": "order", "entityId": "ORD-10045", "status": "open" }
+  ],
+  "fulfillmentProfiles": [
+    {
+      "id": "FPR-001",
+      "name": "Fragile candle outbound profile",
+      "description": "Extra protection, two-step pack confirmation and fragile carrier label.",
+      "storageClass": "Fragile",
+      "steps": ["Scan SKU", "Inspect ceramic shell", "Add protective mailer", "Print fragile label"],
+      "products": ["PRD-1003"]
+    },
+    {
+      "id": "FPR-002",
+      "name": "Liquid goods profile",
+      "description": "Leak check, upright label and spill-safe carton before release to carrier.",
+      "storageClass": "Liquid",
+      "steps": ["Check cap seal", "Apply upright marker", "Pack with absorbent insert"],
+      "products": ["PRD-1002", "PRD-1004"]
+    },
+    {
+      "id": "FPR-003",
+      "name": "Small sample set profile",
+      "description": "Fast pick from small parts zone, standard mailer and automated label print.",
+      "storageClass": "Small Parts",
+      "steps": ["Pick sample set", "Verify lot", "Pack in mailer", "Print parcel label"],
+      "products": ["PRD-1008"]
+    }
+  ]
+}

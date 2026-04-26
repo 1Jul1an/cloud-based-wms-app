@@ -1,13 +1,16 @@
-import React from 'react'
+"use client";
+
+import React from "react";
+import { useI18n } from "../i18n";
 
 const Footer: React.FC = () => {
-    return (
-        <footer className="w-full h-16 flex items-center justify-center border-t">
-            <div className=" mt-1 text-gray-900">
-                <p className="mb-1"> © 2024 Deine Firma. Alle Rechte vorbehalten.</p>
-            </div>
-        </footer>
-    )
-}
+  const { t } = useI18n();
 
-export default Footer
+  return (
+    <footer className="mt-10 w-full rounded-[1.5rem] border border-slate-200/70 bg-white/60 px-6 py-4 text-center text-sm text-slate-500 backdrop-blur-xl">
+      {t("footer.text")}
+    </footer>
+  );
+};
+
+export default Footer;
